@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model UploadedFile {
+  id           Int      @id @default(autoincrement())
+  originalName String   @db.VarChar(512) @map("original_name")
+  storedName   String   @db.VarChar(512) @map("stored_name")
+  mimeType     String   @db.VarChar(255) @map("mime_type")
+  size         Int
+  url          String   @db.VarChar(1024)
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@map("uploaded_files")
+}
